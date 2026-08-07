@@ -60,6 +60,12 @@ target reasoning node | validation rule | known limitation
 The source manifest in `sources-and-pdfs.md` is this contract's instance for
 documents; model and tool outputs carry the same fields when handed off.
 
+## Native JSON types
+
+Booleans are `true`/`false`, numbers are numbers — never quoted strings. A
+`"repair_applied": "false"` is off-schema (`retriable`), and a downstream
+check that reads it as truthy will do the wrong thing.
+
 ## Chain-cut rule
 
 - MERGE adjacent work that shares the same evidence, gate, failure class, and
