@@ -1,17 +1,17 @@
 # PBPP Prompt-Chain Skills
 
-Auditable prompt-chain skills for transportation planning — structured intermediate artifacts with evidence and gates, not exposed model reasoning, built
-for **NCHRP Project 08-187 — Generative AI for Transportation Planning** as a
-Task 5 companion deliverable to Technical Memorandum No. 4 (*Guide to
-Chain-of-Thought Workflows and Prompt Design for GenAI-Enabled Transportation
-Planning*).
+Prompt-chain skills for transportation planning, built for **NCHRP Project
+08-187 — Generative AI for Transportation Planning** as a Task 5 companion
+deliverable to Technical Memorandum No. 4 (*Guide to Chain-of-Thought
+Workflows and Prompt Design for GenAI-Enabled Transportation Planning*).
 
 The repository contains one skill, **`pbpp-chain`**, which runs a planning
 task as a chain of small, checkable nodes instead of one large prompt. Every
 node does a single job behind a hard gate, records the evidence that contains
 each value it used, and hands downstream only what the next node may trust.
 The output of a run is not just an answer — it is a record a reviewer can
-re-read node by node.
+re-read node by node. That record — structured artifacts, evidence quotes,
+gate results — is the audit object, not the model's internal reasoning.
 
 ## Why chains instead of one prompt
 
@@ -96,7 +96,8 @@ Windows PowerShell:
 ```powershell
 git clone https://github.com/root798/pbpp-skills.git
 New-Item -ItemType Directory -Force .claude\skills | Out-Null
-Copy-Item -Recurse pbpp-skills\skills\pbpp-chain .claude\skills```
+Copy-Item -Recurse pbpp-skills\skills\pbpp-chain .claude\skills
+```
 
 The bundled calculator requires Python 3.10+ (standard library only). Verify
 the install with `python -m unittest discover pbpp-skills/tests`.
@@ -153,7 +154,6 @@ memory — if no human result is provided, the node returns null with
 `data_blocking`. Licence metadata follows the Memo 3A governance rule
 (recorded per source; retrieval only where licensed or fair use). Open
 surrogates (NPMRDS, LEHD LODES) are preferred where the task allows.
-
 
 ## License
 
