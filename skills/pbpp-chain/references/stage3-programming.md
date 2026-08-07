@@ -32,7 +32,7 @@ is missing (`data_blocking`), not an illustrative ratio.
 | Node | Job | Hard gate |
 |---|---|---|
 | N2 | Bind the PASSING baseline artifact; validate candidate fields against the controlled vocabulary. | controlled_vocabulary |
-| N6 | Deterministic fiscal validator (`scripts/pbpp_calc.py audit` when a runtime exists): totals, per-program deltas, delta sum, constraint status. An overrun is INFEASIBLE — the chain never rebalances another line to force a pass (`repair_applied` stays false). | equality/ceiling as declared |
+| N6 | Deterministic fiscal validator (`scripts/pbpp_calc.py audit`, path from the skill root, when a runtime exists; supports equality and ceiling constraints): totals, per-program deltas, delta sum, constraint status. An overrun is INFEASIBLE — the chain never rebalances another line to force a pass (`repair_applied` stays false). | equality/ceiling as declared |
 | E1 | Independent evaluator: no benefit-cost ratio asserted, no optimality claim, no silent repair. | — |
 | N8 | NOT EXECUTED — human selection/approval. | — |
 

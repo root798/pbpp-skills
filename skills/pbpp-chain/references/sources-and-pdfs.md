@@ -39,6 +39,21 @@ Extract ONLY the pages the task needs. Two failure modes this prevents:
 Verify the pin mechanically: the supplied text must not contain the withheld
 table's column headers.
 
+## Two modes: benchmark and production
+
+Answer-key hiding serves EVALUATION, not planning. Declare the mode in the
+source manifest:
+
+- **benchmark** — the run is scored against a key, so pages carrying that key
+  (official crosswalks, published results tables) are pinned OUT of the
+  evidence. Supplying them turns the task into transcription.
+- **production** — a real audit uses every authorized authoritative source,
+  and the agency's own crosswalk or results table is often the BEST evidence.
+  Pin and hash it like any other source; nothing is withheld.
+
+The demonstration cases in the TM ran in benchmark mode. Do not carry that
+withholding habit into real policy work.
+
 ## Extraction procedure
 
 1. Extract text from the pinned physical pages only (pypdf or equivalent).

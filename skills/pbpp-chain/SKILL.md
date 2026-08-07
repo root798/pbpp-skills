@@ -12,6 +12,7 @@ description: >
   task family. Also use it when planning work must be traceable, reviewable,
   or defensible to an agency reviewer. Produces inspectable node records with
   evidence quotes, gates, and failure classes instead of free-text reasoning.
+  Routine one-off lookups or pure text editing do not need the chain.
   NCHRP 08-187 Task 5 deliverable.
 ---
 
@@ -82,6 +83,18 @@ audit, gaps) — run it and paste its JSON into the node record instead of
 computing floats in prose. Where the calculation needs a
 licensed resource, use the human-gated tool node from
 `references/proprietary-resources.md`.
+
+## What this skill can and cannot guarantee
+
+This is a protocol the agent follows, not a hosted runner. Gate stops,
+pass-only handoff, and evaluator independence are procedures; they are
+mechanically guaranteed only when an external runner parses the node records
+and controls what enters each context. When running inside a single session,
+apply two mitigations: run evaluator nodes in a FRESH context (a subagent or a
+new conversation) given only the artifact and its inputs — never the producing
+transcript — and route every calculation through `scripts/pbpp_calc.py`, whose
+verdicts cannot be talked into passing. The project's reference runner, which
+enforces these mechanically, lives in the research harness, not in this skill.
 
 ## Step 3 — Assemble and report
 

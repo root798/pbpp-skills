@@ -66,7 +66,7 @@ where a human reviews the artifact before it becomes someone else's input.
 | Failure surfaces in… | Route back to |
 |---|---|
 | Stage 2 extraction (`data_blocking`, value not in evidence) | the source preparer — re-pin pages (`sources-and-pdfs.md`) |
-| Stage 3 audit (INFEASIBLE) | that is a FINDING, not an error — it goes in AUDIT-v1 and to the decision owner |
+| Stage 3 audit (INFEASIBLE) | a business_finding with validator_status PASS — it goes in AUDIT-v1 to the decision owner; chain_action stays continue |
 | Stage 4 schedule gate (lead time, totals) | N3 of the same chain; if the constraint itself is ambiguous, fix the specification and note the change |
 | Any `policy_escalation` | the named human role; the chain waits |
 

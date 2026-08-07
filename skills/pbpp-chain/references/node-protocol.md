@@ -60,6 +60,20 @@ target reasoning node | validation rule | known limitation
 The source manifest in `sources-and-pdfs.md` is this contract's instance for
 documents; model and tool outputs carry the same fields when handed off.
 
+## Three verdicts, never conflated
+
+- **validator_status** — did the step run to spec on LEGAL inputs (PASS/FAIL,
+  with a failure_class on FAIL).
+- **business_finding** — what the result says about the world: INFEASIBLE, a
+  gap, UNKNOWN, a shortfall. A legitimate finding CONTINUES downstream to the
+  decision owner; it is never a chain failure.
+- **chain_action** — continue | stop | escalate, derived from the two above
+  plus the gate. Illegal input stops; an unwelcome finding does not.
+
+The bundled calculators emit all three fields. INFEASIBLE with
+validator_status PASS is the canonical example: the audit ran correctly and
+its finding is the product.
+
 ## Native JSON types
 
 Booleans are `true`/`false`, numbers are numbers — never quoted strings. A

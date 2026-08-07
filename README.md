@@ -1,6 +1,6 @@
 # PBPP Prompt-Chain Skills
 
-Auditable chain-of-thought prompt skills for transportation planning, built
+Auditable prompt-chain skills for transportation planning — structured intermediate artifacts with evidence and gates, not exposed model reasoning, built
 for **NCHRP Project 08-187 — Generative AI for Transportation Planning** as a
 Task 5 companion deliverable to Technical Memorandum No. 4 (*Guide to
 Chain-of-Thought Workflows and Prompt Design for GenAI-Enabled Transportation
@@ -38,11 +38,13 @@ product:
   Matching a benchmark is verification; planning approval belongs to a human
   who is accountable for it.
 
-In demonstration runs across seven commercial models (ten cases per model,
-with a single-prompt control arm on identical inputs), the chain's advantage
-concentrated where a value must clear a machine-checkable constraint before
-acceptance — the fiscal-audit case passed under the chain on every model
-tested, while the single prompt failed it outright on four. On open-ended
+In demonstration runs across seven models (commercial and open-weight), each
+running the shared case set in both a chain arm and a single-prompt control
+arm on identical inputs, the chain's advantage concentrated where a value must
+clear a machine-checkable constraint before acceptance — the fiscal-audit case
+passed under the chain on every model tested, while the single prompt failed
+it outright on four. One case (the NYC schedule) was re-specified during the
+runs and is excluded from like-for-like comparison. On open-ended
 decomposition the chain adds traceability rather than accuracy. The skill
 documents both behaviours; see `skills/pbpp-chain/references/evaluation.md`.
 
@@ -74,15 +76,30 @@ skills/pbpp-chain/
                                             node for HCM / AASHTO Green Book / licensed data
     evaluation.md                           deterministic scoring, probe dimensions, and the
                                             grader pitfalls that produce false failures
+tests/
+  test_pbpp_calc.py                         adversarial regression set for the calculators
+                                            (run: python -m unittest discover tests)
 ```
 
 ## Quick start (Claude Code)
+
+macOS / Linux / Git Bash:
 
 ```bash
 git clone https://github.com/root798/pbpp-skills.git
 mkdir -p .claude/skills
 cp -r pbpp-skills/skills/pbpp-chain .claude/skills/
 ```
+
+Windows PowerShell:
+
+```powershell
+git clone https://github.com/root798/pbpp-skills.git
+New-Item -ItemType Directory -Force .claude\skills | Out-Null
+Copy-Item -Recurse pbpp-skills\skills\pbpp-chain .claude\skills```
+
+The bundled calculator requires Python 3.10+ (standard library only). Verify
+the install with `python -m unittest discover pbpp-skills/tests`.
 
 Then ask for planning work in plain language. The skill triggers on the task,
 selects the family, and runs the chain:
@@ -98,8 +115,10 @@ the relevant stage file into the system context.
 
 1. **Prepare evidence first.** If the source is a PDF, follow
    `references/sources-and-pdfs.md`: record the sha256, pin the physical
-   pages the task needs, verify the text layer, and keep answer-key pages
-   (published crosswalks, results tables) out of the pin.
+   pages the task needs, and verify the text layer. Declare the mode —
+   answer-key pages are withheld only in **benchmark** mode; a real
+   (**production**) audit uses every authorized authoritative source,
+   including official crosswalks and results tables.
 2. **State the required output and its schema in the task prompt.** A schema
    shows field shapes; requirements ("four task blocks, one per PBPP stage")
    must be stated or they will not be enforced. Structured fields (a target
@@ -135,6 +154,12 @@ memory — if no human result is provided, the node returns null with
 (recorded per source; retrieval only where licensed or fair use). Open
 surrogates (NPMRDS, LEHD LODES) are preferred where the task allows.
 
+
+## License
+
+License terms are pending determination under the NCHRP/TRB publication
+agreement for Project 08-187. Until then, all rights reserved; contact the
+project team before redistribution.
 
 ## Provenance and scope
 

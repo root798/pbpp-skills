@@ -11,7 +11,7 @@
 | N5 | Annual funding and multi-year totals against the declared constraints. Never move funds across years to force a pass. | totals |
 | N6 | Record risks and every failed gate, then EMIT the archived artifact. The absent approval (N7) is expected, not `terminal`. | — |
 
-Boundary duties for the specifier (both bit real runs):
+Boundary duties for the specifier (both caused failures in real runs):
 - State whether a bound includes its endpoint ("at least 3 months: exactly
   3 months PASSES").
 - Give dates the precision the check needs — a `YYYY-MM` date cannot support a
@@ -37,7 +37,7 @@ supplied pages so it stays OUT of the evidence.
 | Node | Job | Hard gate |
 |---|---|---|
 | N4 | Load and version-pin each measure, target, desired trend, result, official status. A result whose year/scope differs from the target's definition gets `definition_match=false` — RECORDED on the row, never a `data_blocking` stop. | definition_lock |
-| N5 | Deterministic gap calculator (`scripts/pbpp_calc.py gaps` when a runtime exists): gap only where `definition_match=true`; mismatches return gap=null, status UNKNOWN, with a data_quality_warning. | — |
+| N5 | Deterministic gap calculator (`scripts/pbpp_calc.py gaps`, path from the skill root, when a runtime exists): gap only where `definition_match=true`; mismatches return gap=null, status UNKNOWN, with a data_quality_warning. | — |
 | N6 | Reproduce the official status; keep status fields separate (meeting_target vs trend) — never collapse a multi-state field into yes/no. | status_reproduction |
 
 - DO keep policy consistency and performance monitoring as separate chains.
