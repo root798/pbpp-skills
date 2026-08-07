@@ -76,6 +76,7 @@ where a human reviews the artifact before it becomes someone else's input.
 - every prompt version used
 - every node record, including failed and archived-despite-failure nodes
 - every versioned artifact
-- the evaluation record if scored (`evaluation.md`)
+- the acceptance record per released artifact (`evaluation.md`) — versions,
+  hard/soft outcomes, escalations, approver
 - `planning_validity: NOT_ASSESSED`, `release_status: NOT_RELEASED` throughout —
   a full cycle produces decision-ready material, not decisions.

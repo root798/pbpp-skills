@@ -19,6 +19,21 @@ off only what the next node may trust. The design follows NCHRP 08-187
 Technical Memorandum No. 4 (Chain-of-Thought Workflows and Prompt Design for
 GenAI-Enabled Transportation Planning).
 
+## The seven-step outer workflow (TM4 Section 3.2 — governs every run)
+
+(1) state the decision and its acceptance criteria — including the decision
+owner; (2) identify required modalities and data-quality gates; (3) serialize
+and align inputs (`references/sources-and-pdfs.md`; artifacts carry the
+serialization contract in `references/node-protocol.md`); (4) define nodes,
+schemas, gates, and failure actions (the stage references below); (5) execute
+one passing node at a time; (6) correct, retrieve, rerun, revert, escalate,
+or stop according to the failure class; (7) synthesize and archive — sources,
+assumptions, tool calls, unresolved issues, approvals, prompt and model
+versions — as the acceptance record in `references/evaluation.md`.
+
+Steps 1–3 happen BEFORE any node runs. A chain started without stated
+acceptance criteria and serialized inputs is not a TM4 run.
+
 ## Step 1 — Identify the task family
 
 | PBPP stage | Family | The task looks like | Reference |

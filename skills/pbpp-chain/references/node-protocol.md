@@ -6,6 +6,8 @@ Everything in this file applies to every chain in every stage.
 
 ```json
 {
+  "metadata": {"chain_id": "…", "task_id": "T-x.y", "case_id": "…",
+               "prompt_version": "…", "input_artifact_versions": ["…-v1"]},
   "node_id": "N2",
   "status": "PASS | FAIL",
   "evidence": [{"ref": "E1", "quote": "verbatim text that CONTAINS the value used"}],
@@ -16,6 +18,8 @@ Everything in this file applies to every chain in every stage.
   "unresolved_items": ["..."],
   "failure_class": "null | retriable | data_blocking | tool_blocking | policy_escalation | terminal",
   "correction": "what changed and why, or null",
+  "allowed_tools": ["the deterministic tools this node may call, or []"],
+  "validation_owner": "named human role that confirms this step is usable for the decision, or null",
   "handoff": "exactly what the next node may trust",
   "output": { "this node's structured product only" }
 }
@@ -40,6 +44,21 @@ Distinctions that runs get wrong if unstated:
   emitted with the record — not a reason to suppress the record.
 - A **deliberately not-executed approval step** is expected. Its absence is
   never `terminal`; emit the artifact with `release_status: NOT_RELEASED`.
+
+## The artifact serialization contract (TM4 Section 4.1)
+
+Every artifact that crosses a node or stage boundary carries this contract, so
+a downstream node can trust its inputs without re-deriving provenance:
+
+```
+SERIALIZATION CONTRACT
+artifact_id | modality | source and provenance | spatial coverage |
+temporal coverage | units or vocabulary | serialization method |
+target reasoning node | validation rule | known limitation
+```
+
+The source manifest in `sources-and-pdfs.md` is this contract's instance for
+documents; model and tool outputs carry the same fields when handed off.
 
 ## Chain-cut rule
 
