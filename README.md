@@ -51,6 +51,9 @@ documents both behaviours; see `skills/pbpp-chain/references/evaluation.md`.
 ```
 skills/pbpp-chain/
   SKILL.md                                  entry point: task-family selector and the 3-step procedure
+  scripts/
+    pbpp_calc.py                            deterministic calculators for the calculation nodes
+                                            (logit shares, trip totals, fiscal audit, performance gaps)
   references/
     node-protocol.md                        the node record, failure classes, chain-cut rule,
                                             retrieval guardrails, recurring gates, specifier duties

@@ -112,6 +112,10 @@ def gaps(rows: list) -> dict:
 
 
 if __name__ == "__main__":
+    if len(sys.argv) < 3:
+        print("usage: python pbpp_calc.py {logit|trips|audit|gaps} '<json>'  "
+              "(see the docstring for each payload shape)")
+        sys.exit(1)
     cmd, payload = sys.argv[1], json.loads(sys.argv[2])
     fn = {"logit": lambda p: logit(p["modes"], p["coefficients"]),
           "trips": lambda p: trips(p["total"], p["shares_pct"], p.get("excluded")),
