@@ -71,8 +71,6 @@ skills/pbpp-chain/
                                             node for HCM / AASHTO Green Book / licensed data
     evaluation.md                           deterministic scoring, probe dimensions, and the
                                             grader pitfalls that produce false failures
-VERIFICATION.md                             live test record: what was verified, on what, and
-                                            what a user should know before relying on it
 ```
 
 ## Quick start (Claude Code)
