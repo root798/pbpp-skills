@@ -37,7 +37,7 @@ supplied pages so it stays OUT of the evidence.
 | Node | Job | Hard gate |
 |---|---|---|
 | N4 | Load and version-pin each measure, target, desired trend, result, official status. A result whose year/scope differs from the target's definition gets `definition_match=false` — RECORDED on the row, never a `data_blocking` stop. | definition_lock |
-| N5 | Deterministic gap calculator: gap only where `definition_match=true`; mismatches return gap=null, status UNKNOWN, with a data_quality_warning. | — |
+| N5 | Deterministic gap calculator (`scripts/pbpp_calc.py gaps` when a runtime exists): gap only where `definition_match=true`; mismatches return gap=null, status UNKNOWN, with a data_quality_warning. | — |
 | N6 | Reproduce the official status; keep status fields separate (meeting_target vs trend) — never collapse a multi-state field into yes/no. | status_reproduction |
 
 - DO keep policy consistency and performance monitoring as separate chains.

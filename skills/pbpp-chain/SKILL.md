@@ -2,13 +2,17 @@
 name: pbpp-chain
 description: >
   Execute a transportation-planning task as an auditable TM4 node chain,
-  organized by PBPP stage. Use when the user asks for goal-to-task
-  decomposition, plan metric extraction, trip generation or travel-demand
-  calculation, safety impact prediction, benefit-cost analysis, project
-  prioritization or investment allocation, an implementation plan, or a plan
-  evaluation (policy consistency or performance monitoring). Produces
-  inspectable node records with evidence quotes, gates, and failure classes
-  instead of free-text reasoning. NCHRP 08-187 Task 5 deliverable.
+  organized by PBPP stage. Use this skill whenever the user asks for planning
+  work of any kind — goal or objective decomposition, extracting metrics or
+  targets from a plan or policy PDF, trip generation or travel-demand and
+  mode-choice calculation, crash or safety outcome prediction, benefit-cost
+  analysis, project prioritization, budget or investment allocation and
+  audits, implementation schedules, or checking a plan against policy and
+  monitoring performance — even if they do not say "chain", "PBPP", or name a
+  task family. Also use it when planning work must be traceable, reviewable,
+  or defensible to an agency reviewer. Produces inspectable node records with
+  evidence quotes, gates, and failure classes instead of free-text reasoning.
+  NCHRP 08-187 Task 5 deliverable.
 ---
 
 # PBPP Prompt-Chain Skill
@@ -72,8 +76,10 @@ One node per response turn. For each node:
    visible in the record, not erase the record.
 
 Deterministic arithmetic (trip totals, logit shares, budget sums, performance
-gaps) goes to a calculation the reader can re-run — show the formula and the
-inputs, never bury computation in prose. Where the calculation needs a
+gaps) goes to a calculation the reader can re-run. The bundled
+`scripts/pbpp_calc.py` covers the four recurring calculations (logit, trips,
+audit, gaps) — run it and paste its JSON into the node record instead of
+computing floats in prose. Where the calculation needs a
 licensed resource, use the human-gated tool node from
 `references/proprietary-resources.md`.
 
