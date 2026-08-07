@@ -134,22 +134,6 @@ memory — if no human result is provided, the node returns null with
 (recorded per source; retrieval only where licensed or fair use). Open
 surrogates (NPMRDS, LEHD LODES) are preferred where the task allows.
 
-## What was verified
-
-See `VERIFICATION.md` for the full matrix. In short: fifty automated
-integrity checks on the files themselves (loader requirements, reference
-resolution, no credential or answer-key leakage, table rendering), plus live
-functional tests of every task family and the PDF pathway against Amazon
-Bedrock on inputs that appear nowhere in the skill — including the
-fail-closed behaviours: absent targets return null rather than an invented
-number, perturbed coefficients stop before arithmetic, mixed base years
-refuse to sum, and a definition mismatch is recorded on the row rather than
-halting the run.
-
-Two practical notes from testing: protocol discipline scales with model
-capability (pair the skill with a mid-tier or stronger model for production
-use), and the PDF pathway requires a real text layer — scanned pages without
-OCR are `data_blocking` by design.
 
 ## Provenance and scope
 
