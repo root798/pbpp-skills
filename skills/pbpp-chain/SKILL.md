@@ -1,0 +1,79 @@
+---
+name: pbpp-chain
+description: >
+  Execute a transportation-planning task as an auditable TM4 node chain,
+  organized by PBPP stage. Use when the user asks for goal-to-task
+  decomposition, plan metric extraction, trip generation or travel-demand
+  calculation, safety impact prediction, benefit-cost analysis, project
+  prioritization or investment allocation, an implementation plan, or a plan
+  evaluation (policy consistency or performance monitoring). Produces
+  inspectable node records with evidence quotes, gates, and failure classes
+  instead of free-text reasoning. NCHRP 08-187 Task 5 deliverable.
+---
+
+# PBPP Prompt-Chain Skill
+
+This skill runs a planning task as a chain of small, checkable nodes rather
+than one large prompt. Each node does one job, carries one hard gate, and hands
+off only what the next node may trust. The design follows NCHRP 08-187
+Technical Memorandum No. 4 (Chain-of-Thought Workflows and Prompt Design for
+GenAI-Enabled Transportation Planning).
+
+## Step 1 — Identify the task family
+
+| PBPP stage | Family | The task looks like | Reference |
+|---|---|---|---|
+| 1 Strategic Direction | T-1.1 | "Turn this goal into the tasks it requires" | `references/stage1-strategic-direction.md` |
+| 2 Analysis | T-2.1 | "Extract the metrics / prepare data / estimate trips" | `references/stage2-analysis.md` |
+| 2 Analysis | T-2.2 | "Forecast demand / mode shares / assignment" | `references/stage2-analysis.md` |
+| 2 Analysis | T-2.3 | "Predict crash outcome from this description" | `references/stage2-analysis.md` |
+| 3 Programming | T-3.1 | "Is this investment worth it (benefit-cost)" | `references/stage3-programming.md` |
+| 3 Programming | T-3.2 | "Prioritize / allocate / audit this portfolio" | `references/stage3-programming.md` |
+| 4 Implementation & Evaluation | T-4.1 | "Build the phased implementation plan" | `references/stage4-implementation-evaluation.md` |
+| 4 Implementation & Evaluation | T-4.2 | "Check the plan against policy / monitor performance" | `references/stage4-implementation-evaluation.md` |
+
+Preparing inputs: source documents (PDFs) become pinned, hashed evidence
+passages per `references/sources-and-pdfs.md` BEFORE any node runs. To run all
+four stages as one connected cycle, follow `references/full-pbpp-cycle.md`.
+
+Load `references/node-protocol.md` first in every run — it defines the node
+record, the failure classes, and the handoff contract that all chains share.
+If any input is a licensed or copyright-protected resource (AASHTO Green Book,
+Highway Capacity Manual, INRIX, Replica, StreetLight, paywalled publications),
+also load `references/proprietary-resources.md` before writing any prompt.
+
+## Step 2 — Execute the chain node by node
+
+One node per response turn. For each node:
+
+1. State the node id, its single job, and its hard gate.
+2. Do only that node's work. Do not perform a later node's job early.
+3. Emit the node record (the envelope in `node-protocol.md`) — evidence quotes
+   that CONTAIN every number used, assumptions, the gate result, a failure
+   class if the gate failed, and the handoff statement.
+4. If the gate fails: stop the chain, name the failure class, report what is
+   missing. Never repair an input silently. Never invent a plausible value.
+   A gate-failed terminal node still archives its work — a failed gate must be
+   visible in the record, not erase the record.
+
+Deterministic arithmetic (trip totals, logit shares, budget sums, performance
+gaps) goes to a calculation the reader can re-run — show the formula and the
+inputs, never bury computation in prose. Where the calculation needs a
+licensed resource, use the human-gated tool node from
+`references/proprietary-resources.md`.
+
+## Step 3 — Assemble and report
+
+Assembly copies fields from passing node outputs into the final artifact. It
+introduces no new values. The final artifact always carries:
+
+```
+planning_validity: NOT_ASSESSED
+release_status:    NOT_RELEASED
+```
+
+Matching a benchmark is verification, not planning approval. This skill never
+claims approval, never emits an overall consistency percentage for a policy
+crosswalk, and never asserts a benefit-cost ratio that its inputs cannot
+support. Scoring guidance for whoever evaluates the output is in
+`references/evaluation.md`.
